@@ -4,13 +4,23 @@ A 3D racing game where your **multiplication skills are your engine**. Race thro
 
 It's made for confident young mathematicians (about age 8–11) and goes well past the basic times tables, including the multi-step reasoning used in Opportunity Class (OC) style tests.
 
-## Play
+## Play on Windows (easiest)
+
+1. Go to the **[Releases page](https://github.com/utx/multiplicationracer/releases/latest)**.
+2. Download **MultiplicationRacer-Setup.exe** (installs it with a desktop shortcut) or **MultiplicationRacer-Portable.exe** (no install, just double-click).
+3. If Windows shows *"Windows protected your PC"*, click **More info → Run anyway**. The app just isn't code-signed.
+4. Press **F11** for full screen.
+
+A new Windows build is made automatically each time code is pushed (see `.github/workflows/windows.yml`).
+
+## Play in a browser (for developers)
 
 ```bash
 npm install
 npm run dev        # then open the link it prints (http://localhost:5173)
 ```
 
+To run the desktop version locally: `npm run desktop`. To build the Windows .exe: `npm run dist:win` (output in `release/`).
 To build a version you can host anywhere: `npm run build` (output goes to `dist/`).
 `.github/workflows/deploy.yml` publishes it to GitHub Pages on every push to `main`. To turn that on, go to **Settings → Pages → Source: GitHub Actions**.
 
