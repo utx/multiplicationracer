@@ -1,0 +1,21 @@
+{
+  "name": "multiplication-racer",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Multiplication Racer: World Tour - a 3D racing game powered by times tables and multi-step multiplication.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node --test tests/*.test.js"
+  },
+  "dependencies": {
+    "@fontsource/nunito": "^5.3.0",
+    "@fontsource/russo-one": "^5.3.0",
+    "three": "^0.170.0"
+  },
+  "devDependencies": {
+    "vite": "^5.4.21"
+  }
+}
