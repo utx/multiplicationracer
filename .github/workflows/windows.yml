@@ -1,0 +1,46 @@
+name: Build Windows app
+
+on:
+  push:
+    branches: [main, 'claude/**']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Build .exe (portable + installer)
+        run: npm run dist:win
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MultiplicationRacer-Windows
+          path: release/*.exe
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.${{ github.run_number }}
+          name: Multiplication Racer v1.0.${{ github.run_number }}
+          target_commitish: ${{ github.sha }}
+          make_latest: true
+          body: |
+            ## 🏎️ Multiplication Racer: World Tour for Windows
+
+            **Easiest:** download **MultiplicationRacer-Setup.exe**, run it, and launch from the desktop shortcut.
+            **No install:** download **MultiplicationRacer-Portable.exe** and double-click it.
+
+            Windows may say *"Windows protected your PC"* because the app isn't code-signed. Click **More info → Run anyway**.
+
+            Press **F11** for full screen.
+          files: release/*.exe

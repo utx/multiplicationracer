@@ -124,6 +124,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; }
 .touch { position: absolute; bottom: 140px; width: 100%; display: none; justify-content: space-between; padding: 0 20px; }
 .touch button { width: 86px; height: 86px; border-radius: 50%; font-size: 34px; background: rgba(255, 255, 255, 0.12); border: 2px solid var(--line); }
 @media (pointer: coarse) { .touch { display: flex; } .keys { display: none; } }
+@media (max-width: 1250px) { .keys { display: none; } }
 .pause-btn { position: absolute; top: 20px; right: 230px; }
 
 #fx-speed { position: fixed; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.3s; background: repeating-conic-gradient(from 0deg at 50% 55%, rgba(255, 255, 255, 0.0) 0deg 3deg, rgba(255, 255, 255, 0.10) 3.3deg 3.6deg, rgba(255, 255, 255, 0) 4deg 9deg); -webkit-mask: radial-gradient(circle at 50% 55%, transparent 30%, #000 75%); mask: radial-gradient(circle at 50% 55%, transparent 30%, #000 75%); animation: speedspin 0.25s linear infinite; }

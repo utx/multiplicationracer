@@ -5,6 +5,7 @@ import { SKILL_INFO, generateSkill, generate, ALL_SKILLS } from '../math/questio
 import { generatePitStop } from '../math/pitstops.js';
 import { sfx, unlockAudio, setAudio } from '../game/audio.js';
 
+const IS_DESKTOP = navigator.userAgent.includes('Electron');
 const starStr = (n) => '★'.repeat(n) + '☆'.repeat(3 - n);
 
 // ---------------------------------------------------------------- title
@@ -20,7 +21,9 @@ export function titleScreen(app) {
       <button class="btn" data-a="garage">🏎️ Garage</button>
       <button class="btn" data-a="train">🧠 Pit Crew Training</button>
       <button class="btn" data-a="settings">⚙️ Settings</button>
-    </div></div>`);
+      ${IS_DESKTOP ? '<button class="btn" data-a="quit">🚪 Quit</button>' : ''}
+    </div>
+    ${IS_DESKTOP ? '<div class="muted" style="margin-top:14px;font-size:14px">Press F11 for full screen</div>' : ''}</div>`);
   node.addEventListener('click', (e) => {
     const a = e.target.closest('[data-a]')?.dataset.a;
     if (!a) return;
@@ -29,6 +32,7 @@ export function titleScreen(app) {
     if (a === 'garage') app.goGarage();
     if (a === 'train') app.goTraining();
     if (a === 'settings') app.goSettings();
+    if (a === 'quit') window.close();
   });
   return node;
 }

@@ -94,7 +94,15 @@ export class RaceStage extends Emitter {
     const n = Math.floor(this.track.length / step);
     const pole = new THREE.InstancedMesh(new THREE.CylinderGeometry(0.15, 0.2, 9, 6).translate(0, 4.5, 0), new THREE.MeshStandardMaterial({ color: 0x333740, metalness: 0.6 }), n * 2);
     const lamp = new THREE.InstancedMesh(new THREE.BoxGeometry(2.2, 0.3, 0.7), new THREE.MeshBasicMaterial({ color: 0xfff1c8 }), n * 2);
-    const pool = new THREE.InstancedMesh(new THREE.CircleGeometry(6, 20).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ color: 0xffd9a0, transparent: true, opacity: 0.12, blending: THREE.AdditiveBlending, depthWrite: false }), n * 2);
+    const glowTex = canvasTexture(128, 128, (g, w, h) => {
+      const grd = g.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, w / 2);
+      grd.addColorStop(0, 'rgba(255,255,255,1)');
+      grd.addColorStop(0.5, 'rgba(255,255,255,0.35)');
+      grd.addColorStop(1, 'rgba(255,255,255,0)');
+      g.fillStyle = grd; g.fillRect(0, 0, w, h);
+    });
+    // Soft pools of light on the road (no hard edges when the camera drives over them)
+    const pool = new THREE.InstancedMesh(new THREE.PlaneGeometry(14, 14).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ color: 0xffd9a0, map: glowTex, transparent: true, opacity: 0.07, blending: THREE.AdditiveBlending, depthWrite: false }), n * 2);
     const d = new THREE.Object3D();
     let k = 0;
     for (let i = 0; i < n; i++) {
